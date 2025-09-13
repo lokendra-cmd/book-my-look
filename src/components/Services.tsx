@@ -1,4 +1,22 @@
+'use client';
+
+import { useState } from 'react';
+import BookingForm from './BookingForm';
+
 export default function Services() {
+  const [selectedService, setSelectedService] = useState<{title: string, price: string} | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleBookNow = (service: {title: string, price: string}) => {
+    setSelectedService(service);
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+    setSelectedService(null);
+  };
+
   const services = [
     {
       id: 1,
@@ -101,13 +119,26 @@ export default function Services() {
               </div>
 
               {/* Book Now Button */}
-              <button className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300 shadow-md">
+              <button 
+                onClick={() => handleBookNow({title: service.title, price: service.price})}
+                className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300 shadow-md"
+              >
                 Book Now
               </button>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Booking Form Modal */}
+      {selectedService && (
+        <BookingForm
+          isOpen={isFormOpen}
+          onClose={handleCloseForm}
+          serviceTitle={selectedService.title}
+          servicePrice={selectedService.price}
+        />
+      )}
     </div>
   );
 }
