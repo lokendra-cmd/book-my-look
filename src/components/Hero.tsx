@@ -1,4 +1,12 @@
+'use client';
+
 export default function Hero() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <div id="hero" className="min-h-screen bg-[#F5F3F0] flex items-center justify-center px-6">
       <div className="text-center max-w-4xl">
@@ -19,7 +27,10 @@ export default function Hero() {
         </p>
 
         {/* Call-to-Action Button */}
-        <button className="bg-[#E9499B] text-white px-16 py-5 rounded-2xl text-2xl font-serif font-bold italic btn-exact-shadow hover:bg-[#D63A8B] transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 animate-fade-in-up delay-700">
+        <button 
+          onClick={() => scrollToSection('services')}
+          className="bg-[#E9499B] text-white px-16 py-5 rounded-2xl text-2xl font-serif font-bold italic btn-exact-shadow hover:bg-[#D63A8B] transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 animate-fade-in-up delay-700"
+        >
           Get Started
         </button>
       </div>
